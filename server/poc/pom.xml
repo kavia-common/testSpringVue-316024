@@ -15,7 +15,18 @@
 	<name>poc</name>
 	<description>Poc Spring + PLSQL</description>
 	<properties>
-		<java.version>1.8</java.version>
+		<!--
+			Build baseline:
+			- Spring Boot 2.4.x can run on Java 17 even if it was released before Java 17.
+			- Explicitly compile with Java 17 to match modern CI/runtime and avoid toolchain drift.
+		-->
+		<java.version>17</java.version>
+
+		<!-- Lombok must be new enough for Java 17 module boundaries (avoid requiring --add-opens). -->
+		<lombok.version>1.18.32</lombok.version>
+
+		<!-- Keep compiler plugin explicit for consistent annotation processing behavior across IDE/CI. -->
+		<maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -35,6 +46,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
@@ -61,6 +73,35 @@
 
 	<build>
 		<plugins>
+			<!--
+				Ensure Java 17 compilation and stable Lombok annotation processing.
+				This avoids IllegalAccessError with older Lombok versions on JDK17.
+			-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
+				<configuration>
+					<!-- 'release' is preferred over source/target for JDK 9+ -->
+					<release>17</release>
+
+					<!-- Keep these explicit for tools that still inspect them -->
+					<source>17</source>
+					<target>17</target>
+
+					<!-- Make sure annotation processing is on in CI builds -->
+					<annotationProcessing>enabled</annotationProcessing>
+
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>${lombok.version}</version>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
