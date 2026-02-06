@@ -1,0 +1,10 @@
+/home/kavia/workspace/code-generation/testSpringVue-316024/server/poc/src/main/java/com/upiara/poc/ServletInitializer.java
+/home/kavia/workspace/code-generation/testSpringVue-316024/server/poc/src/main/java/com/upiara/poc/exception/ResourceNotFoundException.java
+/home/kavia/workspace/code-generation/testSpringVue-316024/server/poc/src/main/java/com/upiara/poc/model/User.java
+/home/kavia/workspace/code-generation/testSpringVue-316024/server/poc/src/main/java/com/upiara/poc/CorsConfiguration.java
+/home/kavia/workspace/code-generation/testSpringVue-316024/server/poc/src/main/java/com/upiara/poc/db/h2/VwUsersInsteadOfTrigger.java
+/home/kavia/workspace/code-generation/testSpringVue-316024/server/poc/src/main/java/com/upiara/poc/PocApplication.java
+/home/kavia/workspace/code-generation/testSpringVue-316024/server/poc/src/main/java/com/upiara/poc/generator/DummyId.java
+/home/kavia/workspace/code-generation/testSpringVue-316024/server/poc/src/main/java/com/upiara/poc/repository/UserRepository.java
+/home/kavia/workspace/code-generation/testSpringVue-316024/server/poc/src/main/java/com/upiara/poc/SwaggerConfig.java
+/home/kavia/workspace/code-generation/testSpringVue-316024/server/poc/src/main/java/com/upiara/poc/controller/UserController.java

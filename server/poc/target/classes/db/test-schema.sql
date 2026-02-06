@@ -1,0 +1,56 @@
+-- H2 TEST SCHEMA (profile: test)
+-- -----------------------------
+-- Goal: emulate Oracle semantics where:
+-- - VW_USERS is a VIEW joining USERS + LANGUAGES
+-- - An INSTEAD OF trigger on the view implements CRUD against USERS (and derives language info)
+--
+-- In H2 we create:
+-- - Real base tables: LANGUAGES, USERS
+-- - A read view: VW_USERS
+-- - INSTEAD OF triggers on the view using H2's Java trigger mechanism
+--
+-- NOTE: This file is only executed in the test profile via spring.sql.init.schema-locations.
+
+DROP VIEW IF EXISTS VW_USERS;
+DROP TABLE IF EXISTS USERS;
+DROP TABLE IF EXISTS LANGUAGES;
+
+CREATE TABLE LANGUAGES (
+  ID BIGINT AUTO_INCREMENT PRIMARY KEY,
+  CODE VARCHAR(50) NOT NULL,
+  DESCRIPTION VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE USERS (
+  ID BIGINT AUTO_INCREMENT PRIMARY KEY,
+  NAME VARCHAR(500) NOT NULL,
+  BIRTHDAY DATE NOT NULL,
+  LANGUAGE_ID BIGINT,
+  CONSTRAINT FK_USERS_LANGUAGES FOREIGN KEY (LANGUAGE_ID) REFERENCES LANGUAGES(ID)
+);
+
+CREATE VIEW VW_USERS AS
+SELECT
+  U.ID AS ID,
+  U.NAME AS NAME,
+  U.BIRTHDAY AS BIRTHDAY,
+  L.CODE AS LANGUAGE_CODE,
+  L.DESCRIPTION AS LANGUAGE_DESCRIPTION
+FROM USERS U
+LEFT JOIN LANGUAGES L ON U.LANGUAGE_ID = L.ID;
+
+-- Emulate Oracle INSTEAD OF trigger behavior on VW_USERS for INSERT/UPDATE/DELETE
+CREATE TRIGGER TRG_VW_USERS_INSERT
+INSTEAD OF INSERT ON VW_USERS
+FOR EACH ROW
+CALL "com.upiara.poc.db.h2.VwUsersInsteadOfTrigger";
+
+CREATE TRIGGER TRG_VW_USERS_UPDATE
+INSTEAD OF UPDATE ON VW_USERS
+FOR EACH ROW
+CALL "com.upiara.poc.db.h2.VwUsersInsteadOfTrigger";
+
+CREATE TRIGGER TRG_VW_USERS_DELETE
+INSTEAD OF DELETE ON VW_USERS
+FOR EACH ROW
+CALL "com.upiara.poc.db.h2.VwUsersInsteadOfTrigger";
