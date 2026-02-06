@@ -22,7 +22,7 @@
 		-->
 		<java.version>17</java.version>
 
-		<!-- Lombok must be new enough for Java 17 module boundaries (avoid requiring --add-opens). -->
+		<!-- Lombok must be new enough for Java 17 module boundaries (avoid requiring add-opens). -->
 		<lombok.version>1.18.32</lombok.version>
 
 		<!-- Keep compiler plugin explicit for consistent annotation processing behavior across IDE/CI. -->
