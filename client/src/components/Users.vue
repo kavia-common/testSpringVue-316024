@@ -93,10 +93,10 @@ export default {
       modalTitle: '',
       showMessage: false,
       languages: [
-        {value: 'BR', text: 'Português'},
-        {value: 'EN', text: 'Inglês'},
-        {value: 'SP', text: 'Espanhol'},
-      ]
+        { value: 'BR', text: 'Português' },
+        { value: 'EN', text: 'Inglês' },
+        { value: 'SP', text: 'Espanhol' },
+      ],
     };
   },
   components: {
