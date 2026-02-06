@@ -9,7 +9,6 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +22,6 @@ import com.upiara.poc.exception.ResourceNotFoundException;
 import com.upiara.poc.model.User;
 import com.upiara.poc.repository.UserRepository;
 
-@CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("/api/v1")
 public class UserController {
@@ -38,7 +36,6 @@ public class UserController {
 				.orElseThrow(() -> new ResourceNotFoundException("Usuário não existe para o id: "+userId));
 	}
 	
-	@CrossOrigin
 	@GetMapping("/users")
 	public List <User> getAllUsers() {
 		return userRepository.findAll();
