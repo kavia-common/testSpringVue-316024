@@ -60,11 +60,14 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- Embedded DB for tests (used by application-test.properties) -->
+		<!--
+			H2 is used for tests. We keep the trigger implementation class in main sources, and it
+			implements org.h2.api.Trigger, so H2 must be available on the main compile classpath.
+			(Production still uses Oracle; H2 is not used at runtime in dev/prod profiles.)
+		-->
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 		    <groupId>io.springfox</groupId>
