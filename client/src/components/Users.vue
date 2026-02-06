@@ -18,7 +18,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(user, index) in users" :key="index">
+                        <tr v-for="user in users" :key="user.id">
                             <td>{{ user.name }}</td>
                             <td>{{ user.language_description }}</td>
                             <td>
@@ -44,7 +44,7 @@
 
         <b-modal ref="userModal"
                  id="user-modal"
-                 :title=this.modalTitle
+                 :title="modalTitle"
                  hide-footer>
           <b-form @submit="onSubmit" @reset="onReset" class="w-100">
             <b-form-group id="form-title-group"
@@ -54,7 +54,7 @@
                             type="text"
                             v-model="userForm.name"
                             required
-                            placeHolder="Nome">
+                            placeholder="Nome">
               </b-form-input>
             </b-form-group>
             <b-form-group id="form-author-group"
