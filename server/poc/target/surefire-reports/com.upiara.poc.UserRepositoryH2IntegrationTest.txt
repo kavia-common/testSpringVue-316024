@@ -1,0 +1,24 @@
+-------------------------------------------------------------------------------
+Test set: com.upiara.poc.UserRepositoryH2IntegrationTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 4.082 s <<< FAILURE! - in com.upiara.poc.UserRepositoryH2IntegrationTest
+repositoryCanReadSeededUsersFromView  Time elapsed: 0.207 s  <<< ERROR!
+org.springframework.dao.InvalidDataAccessResourceUsageException: could not prepare statement; SQL [select user0_.id as id1_0_, user0_.birthday as birthday2_0_, user0_.language_code as language3_0_, user0_.language_description as language4_0_, user0_.name as name5_0_ from vw_users user0_]; nested exception is org.hibernate.exception.SQLGrammarException: could not prepare statement
+	at com.upiara.poc.UserRepositoryH2IntegrationTest.repositoryCanReadSeededUsersFromView(UserRepositoryH2IntegrationTest.java:36)
+Caused by: org.hibernate.exception.SQLGrammarException: could not prepare statement
+	at com.upiara.poc.UserRepositoryH2IntegrationTest.repositoryCanReadSeededUsersFromView(UserRepositoryH2IntegrationTest.java:36)
+Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: 
+Table "VW_USERS" not found; SQL statement:
+select user0_.id as id1_0_, user0_.birthday as birthday2_0_, user0_.language_code as language3_0_, user0_.language_description as language4_0_, user0_.name as name5_0_ from vw_users user0_ [42102-200]
+	at com.upiara.poc.UserRepositoryH2IntegrationTest.repositoryCanReadSeededUsersFromView(UserRepositoryH2IntegrationTest.java:36)
+
+repositoryCanInsertViaViewAndReadComputedJoinFields  Time elapsed: 0.02 s  <<< ERROR!
+org.springframework.dao.InvalidDataAccessResourceUsageException: could not prepare statement; SQL [insert into vw_users (birthday, language_code, language_description, name, id) values (?, ?, ?, ?, ?)]; nested exception is org.hibernate.exception.SQLGrammarException: could not prepare statement
+	at com.upiara.poc.UserRepositoryH2IntegrationTest.repositoryCanInsertViaViewAndReadComputedJoinFields(UserRepositoryH2IntegrationTest.java:52)
+Caused by: org.hibernate.exception.SQLGrammarException: could not prepare statement
+	at com.upiara.poc.UserRepositoryH2IntegrationTest.repositoryCanInsertViaViewAndReadComputedJoinFields(UserRepositoryH2IntegrationTest.java:52)
+Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: 
+Table "VW_USERS" not found; SQL statement:
+insert into vw_users (birthday, language_code, language_description, name, id) values (?, ?, ?, ?, ?) [42102-200]
+	at com.upiara.poc.UserRepositoryH2IntegrationTest.repositoryCanInsertViaViewAndReadComputedJoinFields(UserRepositoryH2IntegrationTest.java:52)
+
